@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>twoD Carousel</title>
+    <style>
+        .slider2dCol{
+            display: inline-block;
+            width: 200px;
+            height: auto;
+            transition: transform 0.5s, opacity 0.5s;
+        }
+        .slider2dRow{
+            white-space: nowrap;
+            /*overflow: hidden;*/
+        }
+        img{
+            width: 100%;
+            /*padding: 5px;*/
+        }
+        video{width: 100%}
+        .slider2d{
+            width: 700px;
+            height: 400px;
+            overflow: hidden;
+            border: solid 2px black;
+        }
+        #slider2dTarget{
+            width: 700px;
+            height: auto;
+            border: solid 2px red;
+        }
+    </style>
+</head>
+<body>
+<div id="slider2dTarget"></div>
+<div class="slider2d">
+    <div class="slider2dRow">
+        <div class="slider2dCol"><video src="vid/Hyouka - 01 (TVS 1280x720 x264 AAC).mp4"></video></div>
+        <div class="slider2dCol"><video src="vid/Hyouka - 02 (TVS 1280x720 x264 AAC).mp4"></video></div>
+        <div class="slider2dCol"><video src="vid/Hyouka - 03 (TVS 1280x720 x264 AAC).mp4"></video></div>
+    </div>
+
+    <div class="slider2dRow">
+        <div class="slider2dCol"><video src="vid/Hyouka - 04 (TVS 1280x720 x264 AAC).mp4"></video></div>
+        <div class="slider2dCol"><video src="vid/Hyouka - 05 (TVS 1280x720 x264 AAC).mp4"></video></div>
+        <div class="slider2dCol"><video src="vid/Hyouka - 06 (TVS 1280x720 x264 AAC).mp4"></video></div>
+    </div>
+
+    <div class="slider2dRow">
+        <div class="slider2dCol"><video src="vid/Hyouka - 07 (TVS 1280x720 x264 AAC).mp4"></video></div>
+        <div class="slider2dCol"><video src="vid/Hyouka - 08 (TVS 1280x720 x264 AAC).mp4"></video></div>
+        <div class="slider2dCol"><video src="vid/Hyouka - 09 (TVS 1280x720 x264 AAC).mp4"></video></div>
+    </div>
+<!--    <div class="slider2dRow">-->
+<!--        <div class="slider2dCol"><img src="img/1.jpg"></div>-->
+<!--        <div class="slider2dCol"><img src="img/2.jpg"></div>-->
+<!--        <div class="slider2dCol"><img src="img/3.jpg"></div>-->
+<!--        <div class="slider2dCol"><img src="img/4.jpg"></div>-->
+<!--        <div class="slider2dCol"><img src="img/5.jpg"></div>-->
+<!--    </div>-->
+
+<!--    <div class="slider2dRow">-->
+<!--        <div class="slider2dCol"><img src="img/6.jpg"></div>-->
+<!--        <div class="slider2dCol"><img src="img/7.jpg"></div>-->
+<!--        <div class="slider2dCol"><img src="img/8.jpg"></div>-->
+<!--        <div class="slider2dCol"><img src="img/9.jpg"></div>-->
+<!--        <div class="slider2dCol"><img src="img/10.jpg"></div>-->
+<!--    </div>-->
+
+<!--    <div class="slider2dRow">-->
+<!--        <div class="slider2dCol"><img src="img/11.jpg"></div>-->
+<!--        <div class="slider2dCol"><img src="img/12.jpg"></div>-->
+<!--        <div class="slider2dCol"><img src="img/13.jpg"></div>-->
+<!--        <div class="slider2dCol"><img src="img/14.jpg"></div>-->
+<!--        <div class="slider2dCol"><img src="img/15.jpg"></div>-->
+<!--    </div>-->
+
+<!--    <div class="slider2dRow">-->
+<!--        <div class="slider2dCol"><img src="img/16.jpg"></div>-->
+<!--        <div class="slider2dCol"><img src="img/17.jpg"></div>-->
+<!--        <div class="slider2dCol"><img src="img/18.jpg"></div>-->
+<!--        <div class="slider2dCol"><img src="img/19.jpg"></div>-->
+<!--        <div class="slider2dCol"><img src="img/20.jpg"></div>-->
+<!--    </div>-->
+
+<!--    <div class="slider2dRow">-->
+<!--        <div class="slider2dCol"><img src="img/21.jpg"></div>-->
+<!--        <div class="slider2dCol"><img src="img/22.jpg"></div>-->
+<!--        <div class="slider2dCol"><img src="img/23.jpg"></div>-->
+<!--        <div class="slider2dCol"><img src="img/24.jpg"></div>-->
+<!--        <div class="slider2dCol"><img src="img/25.jpg"></div>-->
+<!--    </div>-->
+</div>
+<script>
+
+    let positionX = 0;
+    let positionY = 0;
+    let targetX = 2;
+    let targetY = 2;
+    const contentWidthNum = 3;
+    const contentHeightNum = 3;
+    function init() {
+        console.log('init');
+        let cla = document.getElementsByClassName('slider2dCol');
+        for(let i=0;i<cla.length;i++){
+
+            cla[i].setAttribute('id', i.toString());  // Append ID
+        }
+        initMove('slider2dCol'); // Target centering
+        let target = document.getElementById(target2id()).firstElementChild.cloneNode();
+        target.setAttribute('controls', '');
+        document.getElementById("slider2dTarget").appendChild(target)
+    }
+
+    function target2id() {
+        return (targetY*contentWidthNum+targetX).toString()
+    }
+    function isOver(x, y) {
+        let ntx = targetX - x;
+        let nty = targetY - y;
+        console.log(ntx, nty);
+        return ntx < 0 || ntx > contentWidthNum-1 || nty < 0 || nty > contentHeightNum-1;
+    }
+
+    function initMove(className) {
+        let mains = document.getElementsByClassName('slider2d');
+        let cla = document.getElementsByClassName(className);
+        let mainW = mains[0].clientWidth;
+        let mainH = mains[0].clientHeight;
+        let contentW = cla[0].clientWidth;
+        let contentH = cla[0].clientHeight;
+        let x = ((mainW - contentW)/2 - contentW*targetX) /contentW;
+        let y = ((mainH - contentH)/2 - contentH*targetY) /contentH;
+        for(let i=0;i<cla.length;i++){
+            cla[i].style.transform = `translate3d(${positionX + x*100}%, ${positionY + y*100}%, 0)`;
+            cla[i].style.opacity = '0.3';
+        }
+        positionX = positionX + x*100;
+        positionY = positionY + y*100;
+        let a = document.getElementById(target2id());
+        a.style.opacity = '1'
+    }
+
+    function move(x, y, className){
+        x = Math.round(x); y = Math.round(y);
+        if (isOver(x, y)) return;
+        let cla = document.getElementsByClassName(className);
+        for(let i=0;i<cla.length;i++){
+            cla[i].style.transform = `translate3d(${positionX + x*100}%, ${positionY + y*100}%, 0)`;
+            cla[i].style.opacity = '0.3';
+        }
+        positionX = positionX + x*100;
+        positionY = positionY + y*100;
+        targetX = targetX - x;
+        targetY = targetY - y;
+        let a = document.getElementById(target2id());
+        a.style.opacity = '1';
+        let p = document.getElementById('slider2dTarget');
+        console.log(p);
+        p.removeChild(p.firstChild);
+        let target = document.getElementById(target2id()).firstElementChild.cloneNode();
+        target.setAttribute('controls', '');
+        p.appendChild(target)
+
+    }
+
+    document.addEventListener('keydown', ev => {
+        if(ev.key === 'ArrowRight') {
+            console.log('right');
+            move(-1, 0, 'slider2dCol');
+            console.log(positionX, positionY)
+        }
+        if(ev.key === "ArrowLeft") {
+            console.log('left');
+            move(1, 0, 'slider2dCol');
+            console.log(positionX, positionY)
+        }
+
+        if(ev.key === "ArrowUp") {
+            console.log('up');
+            move(0, 1, 'slider2dCol');
+            console.log(positionX, positionY)
+        }
+        if(ev.key === "ArrowDown") {
+            console.log('down');
+            move(0, -1, 'slider2dCol');
+            console.log(positionX, positionY)
+        }
+    });
+    window.onload = function () {
+        init()
+    }
+</script>
+</body>
+</html>
