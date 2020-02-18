@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Carousel2D</title>
+    <style>
+        .carousel2dCol{
+            display: inline-block;
+            width: auto;
+            height: auto;
+            transition: transform 0.5s, opacity 0.5s;
+        }
+        .carousel2dRow{
+            white-space: nowrap;
+            /*overflow: hidden;*/
+        }
+        .carousel2dContent{
+            width: 200px;
+            height: 112.5px;
+            vertical-align: bottom;
+        }
+        #test{
+            width: 700px;
+            height: 400px;
+            overflow: hidden;
+            border: solid 2px black;
+        }
+        #slider2dTarget{
+            width: 700px;
+            height: auto;
+            border: solid 2px red;
+        }
+    </style>
+</head>
+<body>
+<div id="test"></div>
+
+<script src="carousel2d.js"></script>
+<script>
+    let list = ['img/1.jpg', 'img/2.jpg','img/3.jpg',
+        'img/4.jpg','img/5.jpg','img/6.jpg',
+        'img/7.jpg','img/8.jpg','img/9.jpg'];
+let a = new Carousel2d('test', list,{
+    contentHeightNum: 3,
+    contentWidthNum: 3,
+    targetX: 1,
+    targetY: 1,
+});
+</script>
+</body>
+</html>
