@@ -1,0 +1,18 @@
+.carousel2dCol{
+    display: inline-block;
+    /*width: auto;*/
+    /*height: auto;*/
+    width: 200px;
+    height: 112.5px;
+    transition: transform 0.5s, opacity 0.5s;
+}
+.carousel2dRow{
+    white-space: nowrap;
+    /*overflow: hidden;*/
+}
+.carousel2dContent{
+    /*width: 200px;*/
+    /*height: 112.5px;*/
+    width: 100%;
+    vertical-align: bottom;
+}

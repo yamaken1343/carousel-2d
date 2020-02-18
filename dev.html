@@ -3,49 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <title>Carousel2D</title>
+    <link rel="stylesheet" type="text/css" href="carousel2d.css">
     <style>
-        .carousel2dCol{
-            display: inline-block;
-            width: auto;
-            height: auto;
-            transition: transform 0.5s, opacity 0.5s;
-        }
-        .carousel2dRow{
-            white-space: nowrap;
-            /*overflow: hidden;*/
-        }
-        .carousel2dContent{
-            width: 200px;
-            height: 112.5px;
-            vertical-align: bottom;
-        }
         #test{
             width: 700px;
             height: 400px;
             overflow: hidden;
             border: solid 2px black;
         }
-        #slider2dTarget{
+        #testView{
             width: 700px;
             height: auto;
             border: solid 2px red;
+        }
+        .testCol_{
+            width: 200px;
+            height: 113px;
         }
     </style>
 </head>
 <body>
 <div id="test"></div>
+<div id="testView"></div>
+<button onclick="a.moveAbsolute(1,0)">aaaaa</button>
 
 <script src="carousel2d.js"></script>
 <script>
-    let list = ['img/1.jpg', 'img/2.jpg','img/3.jpg',
-        'img/4.jpg','img/5.jpg','img/6.jpg',
-        'img/7.jpg','img/8.jpg','img/9.jpg'];
-let a = new Carousel2d('test', list,{
-    contentHeightNum: 3,
-    contentWidthNum: 3,
-    targetX: 1,
-    targetY: 1,
-});
+    let list = [];
+    for (let i=1;i<26;i++){
+        list.push(`img/${i}.jpg`)
+    }
+    console.log(list);
+    let a = new Carousel2d('test', list,{
+        contentHeightNum: 4,
+        contentWidthNum: 5,
+        targetX: 1,
+        targetY: 1,
+    });
+
+    document.addEventListener('keydown', ev => {
+        if(ev.key === 'ArrowRight') {
+            console.log('right');
+            a.moveRelative(-1, 0);
+        }
+        if(ev.key === "ArrowLeft") {
+            console.log('left');
+            a.moveRelative(1, 0);
+        }
+
+        if(ev.key === "ArrowUp") {
+            console.log('up');
+            a.moveRelative(0, 1);
+        }
+        if(ev.key === "ArrowDown") {
+            console.log('down');
+            a.moveRelative(0, -1);
+        }
+    });
 </script>
 </body>
 </html>
