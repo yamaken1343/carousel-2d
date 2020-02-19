@@ -6,10 +6,12 @@
     <link rel="stylesheet" type="text/css" href="carousel2d.css">
     <style>
         #test{
+            position: relative;
             width: 700px;
             height: 394px;
             overflow: hidden;
             border: solid 2px black;
+            user-select: none;
         }
         #testView{
             width: 700px;
@@ -17,8 +19,8 @@
             border: solid 2px red;
         }
         .testCol_{
-            width: 700px;
-            height: 394px;
+            width: 200px;
+            height: 122px;
         }
     </style>
 </head>
@@ -40,6 +42,7 @@
         targetX: 0,
         targetY: 0,
         useView: true,
+        useController: true
     });
 
     document.addEventListener('keydown', ev => {

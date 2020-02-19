@@ -1,3 +1,8 @@
+:root{
+    --carousel2dControllerSize: 20px;
+    --carousel2dControllerWidth: 3px;
+    --carousel2dControllerColor: #0500ff;
+}
 .carousel2dCol{
     display: inline-block;
     /*width: auto;*/
@@ -16,4 +21,62 @@
     width: 100%;
     height: 100%;
     vertical-align: bottom;
+}
+.carousel2dController{
+    position: absolute;
+}
+.carousel2dController-right{
+    right: calc(var(--carousel2dControllerSize));
+    top: 0;
+    height: 100%;
+}
+.carousel2dController-left{
+    left: calc(var(--carousel2dControllerSize));
+    top: 0;
+    height: 100%;
+}
+.carousel2dController-down{
+    left: 0;
+    bottom: calc(var(--carousel2dControllerSize));
+    width: 100%;
+}
+.carousel2dController-up{
+    left: 0;
+    top: calc(var(--carousel2dControllerSize));
+    width: 100%;
+}
+
+.carousel2dController-left::before, .carousel2dController-right::before, .carousel2dController-up::before, .carousel2dController-down::before{
+    content: '';
+    width: var(--carousel2dControllerSize);
+    height: var(--carousel2dControllerSize);
+    border: 0;
+    border-top: solid var(--carousel2dControllerWidth) var(--carousel2dControllerColor);
+    border-right: solid var(--carousel2dControllerWidth) var(--carousel2dControllerColor);
+    position: absolute;
+}
+
+
+.carousel2dController-left::before{
+    transform: rotate(225deg);
+    top: 50%;
+    left: 50%;
+}
+
+.carousel2dController-right::before{
+    transform: rotate(45deg);
+    top: 50%;
+    right: 50%;
+}
+
+.carousel2dController-down::before{
+    transform: rotate(135deg);
+    bottom: 50% ;
+    left: 50%;
+}
+
+.carousel2dController-up::before{
+    transform: rotate(315deg);
+    top: 50%;
+    left: 50%;
 }

@@ -39,8 +39,10 @@ class Carousel2d {
             let target = document.getElementById(this.target2id()).firstElementChild.cloneNode();
             document.getElementById(this.viewid).appendChild(target);
         }
-        this.moveEventInit()
-
+        this.moveEventInit();
+        if (this.useController){
+            this.addController()
+        }
     }
 
     target2id() {
@@ -53,6 +55,7 @@ class Carousel2d {
         this.targetX = property.targetX;
         this.targetY = property.targetY;
         this.useView = property.useView;
+        this.useController = property.useController;
     }
 
     initMove() {
@@ -100,6 +103,19 @@ class Carousel2d {
         let moveY = this.targetY - y;
         this.moveRelative(moveX, moveY)
     }
+    moveLeft(){
+        this.moveRelative(1, 0)
+    }
+
+    moveRight(){
+        this.moveRelative(-1, 0)
+    }
+    moveUp(){
+        this.moveRelative(0, 1)
+    }
+    moveDown(){
+        this.moveRelative(0, -1)
+    }
 
     isOverTargetIndex(x, y) {
         let ntx = this.targetX - x;
@@ -108,7 +124,7 @@ class Carousel2d {
     }
 
     moveEventInit(){
-        document.getElementById(this.rootid).addEventListener(this.moveEventid, evt =>  {
+        document.getElementById(this.rootid).addEventListener(this.moveEventid, () =>  {
             // Target is not transparent
             let a = document.getElementById(this.target2id());
             a.style.opacity = '1';
@@ -123,6 +139,25 @@ class Carousel2d {
 
             }
         });
+    }
+    addController(){
+        let root = document.getElementById(this.rootid);
+        let left = document.createElement('div');
+        left.classList.add('carousel2dController-left', 'carousel2dController');
+        left.onclick = () => this.moveLeft();
+        let right = document.createElement('div');
+        right.classList.add('carousel2dController-right', 'carousel2dController');
+        right.onclick = () => this.moveRight();
+        let up = document.createElement('div');
+        up.classList.add('carousel2dController-up', 'carousel2dController');
+        up.onclick = () => this.moveUp();
+        let down = document.createElement('div');
+        down.classList.add('carousel2dController-down', 'carousel2dController');
+        down.onclick = () => this.moveDown();
+        root.appendChild(left);
+        root.appendChild(right);
+        root.appendChild(down);
+        root.appendChild(up);
     }
 
 }
