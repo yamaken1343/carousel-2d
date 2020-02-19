@@ -7,7 +7,7 @@
     <style>
         #test{
             width: 700px;
-            height: 400px;
+            height: 394px;
             overflow: hidden;
             border: solid 2px black;
         }
@@ -17,8 +17,8 @@
             border: solid 2px red;
         }
         .testCol_{
-            width: 200px;
-            height: 113px;
+            width: 700px;
+            height: 394px;
         }
     </style>
 </head>
@@ -37,8 +37,9 @@
     let a = new Carousel2d('test', list,{
         contentHeightNum: 4,
         contentWidthNum: 5,
-        targetX: 1,
-        targetY: 1,
+        targetX: 0,
+        targetY: 0,
+        useView: true,
     });
 
     document.addEventListener('keydown', ev => {

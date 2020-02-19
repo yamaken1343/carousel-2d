@@ -4,15 +4,18 @@ class Carousel2d {
         this.colClass = id + 'Col_';
         this.rowClass = id + 'Row_';
         this.viewid = id + 'View';
+        this.moveEventid = id + 'Move';
         this.rootid = id;
 
         this.contentNum = this.contentHeightNum * this.contentHeightNum;
 
         this.positionX = 0;
         this.positionY = 0;
+        this.moveEvent = new Event(this.moveEventid);
 
         if (this.contentNum !== contentList.length) {
-            console.log("aaa");
+            console.warn(`Content count and content list count are inconsistent.
+                         Make sure that the product of "contentHeightNum" and "contentHeightNum" matches the number of elements in "contentList".`);
         }
         let root = document.getElementById(id);
         for (let i = 0; i < this.contentHeightNum; i++) {
@@ -32,8 +35,11 @@ class Carousel2d {
             root.appendChild(row);
         }
         this.initMove();
-        let target = document.getElementById(this.target2id()).firstElementChild.cloneNode();
-        document.getElementById(this.viewid).appendChild(target)
+        if (this.useView){
+            let target = document.getElementById(this.target2id()).firstElementChild.cloneNode();
+            document.getElementById(this.viewid).appendChild(target);
+        }
+        this.moveEventInit()
 
     }
 
@@ -46,6 +52,7 @@ class Carousel2d {
         this.contentHeightNum = property.contentHeightNum;
         this.targetX = property.targetX;
         this.targetY = property.targetY;
+        this.useView = property.useView;
     }
 
     initMove() {
@@ -69,11 +76,9 @@ class Carousel2d {
         // Init position set
         this.positionX = x * 100;
         this.positionY = y * 100;
-
         // Target is not transparent
         let a = document.getElementById(this.target2id());
         a.style.opacity = '1';
-        console.log(a);
     }
 
     moveRelative(x, y) {
@@ -87,12 +92,7 @@ class Carousel2d {
         this.positionY = this.positionY + y * 100;
         this.targetX = this.targetX - x;
         this.targetY = this.targetY - y;
-        let a = document.getElementById(this.target2id());
-        a.style.opacity = '1';
-        let p = document.getElementById(this.viewid);
-        p.removeChild(p.firstChild);
-        let target = document.getElementById(this.target2id()).firstElementChild.cloneNode();
-        p.appendChild(target)
+        document.getElementById(this.rootid).dispatchEvent(this.moveEvent);
     }
 
     moveAbsolute(x, y) {
@@ -106,4 +106,23 @@ class Carousel2d {
         let nty = this.targetY - y;
         return ntx < 0 || ntx > this.contentWidthNum - 1 || nty < 0 || nty > this.contentHeightNum - 1;
     }
+
+    moveEventInit(){
+        document.getElementById(this.rootid).addEventListener(this.moveEventid, evt =>  {
+            // Target is not transparent
+            let a = document.getElementById(this.target2id());
+            a.style.opacity = '1';
+            // Change View
+            if (this.useView){
+                // Remove existing contentRemove existing content
+                let p = document.getElementById(this.viewid);
+                // Add targeted content
+                p.removeChild(p.firstChild);
+                let target = document.getElementById(this.target2id()).firstElementChild.cloneNode();
+                p.appendChild(target)
+
+            }
+        });
+    }
+
 }
