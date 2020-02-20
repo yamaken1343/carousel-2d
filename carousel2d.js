@@ -11,30 +11,55 @@ class Carousel2d {
 
         this.positionX = 0;
         this.positionY = 0;
-
-        if (contentNum !== contentList.length) {
-            console.warn('Content count and content list count are inconsistent. ' +
-                'Make sure that the product of "contentHeightNum" and "contentHeightNum" matches the number of elements in "contentList".');
-        }
-        let root = document.getElementById(id);
-        for (let i = 0; i < this.contentHeightNum; i++) {
-            let row = document.createElement('div');
-            row.classList.add(this.rowClass, 'carousel2dRow');
-            for (let j = 0; j < this.contentWidthNum; j++) {
-                let col = document.createElement('div');
-                col.classList.add(this.colClass, 'carousel2dCol');
+        if (contentList) {
+            if (contentNum !== contentList.length) {
+                console.warn('id:' + id + ': Content count and content list count are inconsistent. ' +
+                    'Make sure that the product of "contentHeightNum" and "contentHeightNum" matches the number of elements in "contentList".');
+            }
+            let root = document.getElementById(this.rootid);
+            for (let i = 0; i < this.contentHeightNum; i++) {
+                let row = document.createElement('div');
+                row.classList.add(this.rowClass, 'carousel2dRow');
+                for (let j = 0; j < this.contentWidthNum; j++) {
+                    let col = document.createElement('div');
+                    col.classList.add(this.colClass, 'carousel2dCol');
+                    col.onclick = () => {
+                        this.moveAbsolute(j, i)
+                    };
+                    col.setAttribute('id', this.rootid + (i * this.contentWidthNum + j).toString() + '_');
+                    col.style.width = this.contentWidth;
+                    col.style.height = this.contentHeight;
+                    let img = document.createElement('img');
+                    img.classList.add('carousel2dContent');
+                    img.setAttribute('src', contentList[i * this.contentWidthNum + j]);
+                    col.appendChild(img);
+                    row.appendChild(col);
+                }
+                root.appendChild(row);
+            }
+        } else {
+            let root = document.getElementById(this.rootid);
+            let colC = root.getElementsByClassName('carousel2dCol');
+            let rowC = root.getElementsByClassName('carousel2dRow');
+            for (let k = 0; k < colC.length; k++) {
+                let col = colC[k];
+                let i = Math.floor(k / this.contentWidthNum);
+                let j = k % this.contentWidthNum;
+                col.classList.add(this.colClass);
+                col.setAttribute('id', this.rootid + k.toString() + '_');
                 col.onclick = () => {
                     this.moveAbsolute(j, i)
                 };
-                col.setAttribute('id', this.rootid + (i * this.contentWidthNum + j).toString() + '_');
-                let img = document.createElement('img');
-                img.classList.add('carousel2dContent');
-                img.setAttribute('src', contentList[i * this.contentWidthNum + j]);
-                col.appendChild(img);
-                row.appendChild(col);
+                col.style.width = this.contentWidth;
+                col.style.height = this.contentHeight;
             }
-            root.appendChild(row);
+
+            for (let k = 0; k < rowC.length; k++) {
+                let row = rowC[k];
+                row.classList.add(this.rowClass);
+            }
         }
+
         this.initMove();
         if (this.useView) {
             let target = document.getElementById(this.target2id()).firstElementChild.cloneNode();
@@ -55,6 +80,8 @@ class Carousel2d {
     setProperty(property) {
         this.contentWidthNum = property.contentWidthNum;
         this.contentHeightNum = property.contentHeightNum;
+        this.contentWidth = property.contentWidth;
+        this.contentHeight = property.contentHeight;
         this.targetX = property.targetX;
         this.targetY = property.targetY;
         this.useView = property.useView;

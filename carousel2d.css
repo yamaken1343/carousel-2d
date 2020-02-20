@@ -1,23 +1,19 @@
-:root{
-    --carousel2dControllerSize: 20px;
-    --carousel2dControllerWidth: 3px;
-    --carousel2dControllerColor: #0500ff;
+.carousel2d {
+    position: relative;
+    overflow: hidden;
+    user-select: none;
 }
-.carousel2dCol{
+
+.carousel2dCol {
     display: inline-block;
-    /*width: auto;*/
-    /*height: auto;*/
-    width: 200px;
-    height: 112.5px;
     transition: transform 0.5s, opacity 0.5s;
 }
-.carousel2dRow{
+
+.carousel2dRow {
     white-space: nowrap;
-    /*overflow: hidden;*/
 }
-.carousel2dContent{
-    /*width: 200px;*/
-    /*height: 112.5px;*/
+
+.carousel2dContent {
     width: 100%;
     height: 100%;
     vertical-align: bottom;
