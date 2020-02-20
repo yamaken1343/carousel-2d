@@ -23,10 +23,7 @@ class Carousel2d {
                 for (let j = 0; j < this.contentWidthNum; j++) {
                     let col = document.createElement('div');
                     col.classList.add(this.colClass, 'carousel2dCol');
-                    col.onclick = () => {
-                        this.moveAbsolute(j, i)
-                    };
-                    col.setAttribute('id', this.rootid + (i * this.contentWidthNum + j).toString() + '_');
+                    col.setAttribute('id', this.rootid + '_' + (i * this.contentWidthNum + j).toString() + '_');
                     col.style.width = this.contentWidth;
                     col.style.height = this.contentHeight;
                     let img = document.createElement('img');
@@ -43,13 +40,8 @@ class Carousel2d {
             let rowC = root.getElementsByClassName('carousel2dRow');
             for (let k = 0; k < colC.length; k++) {
                 let col = colC[k];
-                let i = Math.floor(k / this.contentWidthNum);
-                let j = k % this.contentWidthNum;
                 col.classList.add(this.colClass);
-                col.setAttribute('id', this.rootid + k.toString() + '_');
-                col.onclick = () => {
-                    this.moveAbsolute(j, i)
-                };
+                col.setAttribute('id', this.rootid + '_' + k.toString() + '_');
                 col.style.width = this.contentWidth;
                 col.style.height = this.contentHeight;
             }
@@ -62,7 +54,7 @@ class Carousel2d {
 
         this.initMove();
         if (this.useView) {
-            let target = document.getElementById(this.target2id()).firstElementChild.cloneNode();
+            let target = document.getElementById(this.target2id()).firstChild.cloneNode(true);
             document.getElementById(this.viewid).appendChild(target);
         }
         this.moveEventInit();
@@ -74,7 +66,7 @@ class Carousel2d {
     }
 
     target2id() {
-        return this.rootid + (this.targetY * this.contentWidthNum + this.targetX).toString() + '_'
+        return this.rootid + '_' + (this.targetY * this.contentWidthNum + this.targetX).toString() + '_'
     }
 
     setProperty(property) {
@@ -168,9 +160,8 @@ class Carousel2d {
                 let p = document.getElementById(this.viewid);
                 // Add targeted content
                 p.removeChild(p.firstChild);
-                let target = document.getElementById(this.target2id()).firstElementChild.cloneNode();
+                let target = document.getElementById(this.target2id()).firstChild.cloneNode(true);
                 p.appendChild(target)
-
             }
         });
     }
@@ -197,24 +188,25 @@ class Carousel2d {
 
     dragEventInit() {
         let root = document.getElementById(this.rootid);
-        root.addEventListener("dragstart", e => {
+        root.addEventListener("mousedown", e => {
+            this.mouseFlag = true;
             this.startX = e.clientX;
             this.startY = e.clientY;
+            this.diffX = 0;
+            this.diffY = 0;
             // Turn off animation
             let col = document.getElementsByClassName(this.colClass);
             for (let i = 0; i < col.length; i++) {
                 col[i].style.transition = 'transform 0s, opacity 0s';
             }
+            e.preventDefault()
         });
 
-        root.addEventListener("drag", e => {
+        root.addEventListener("mousemove", e => {
+            if (!this.mouseFlag) return;
             // Countermeasures that become 0 when the mouse on
-            if (e.clientX !== 0) {
-                this.diffX = -this.startX + e.clientX;
-            }
-            if (e.clientY !== 0) {
-                this.diffY = -this.startY + e.clientY;
-            }
+            this.diffX = -this.startX + e.clientX;
+            this.diffY = -this.startY + e.clientY;
             // Animation
             let col = document.getElementsByClassName(this.colClass);
             for (let i = 0; i < col.length; i++) {
@@ -222,7 +214,8 @@ class Carousel2d {
             }
         });
 
-        root.addEventListener("dragend", () => {
+        root.addEventListener("mouseup", e => {
+            this.mouseFlag = false;
             let col = document.getElementsByClassName(this.colClass);
             let contentW = col[0].clientWidth;
             let contentH = col[0].clientHeight;
@@ -238,8 +231,20 @@ class Carousel2d {
             let moveY = Math.round(this.diffY / contentH);
             if (moveY === 0 && this.diffY > contentH / 10) moveY = 1;
             else if (moveY === 0 && -this.diffY > contentH / 10) moveY = -1;
-
-            this.moveRelative(moveX, moveY);
+            // single click
+            if (moveX === 0 && moveY === 0) {
+                // id to num (ex. rootid_num_ -> num)
+                let clickId = e.target.parentElement.getAttribute('id').replace(this.rootid, '').slice(1, -1);
+                // content click
+                if (clickId) {
+                    let i = Math.floor(clickId / this.contentWidthNum);
+                    let j = clickId % this.contentWidthNum;
+                    this.moveAbsolute(j, i)
+                }
+                // Do nothing when clicking non-content(eg. controller, margin)
+            } else { // drag
+                this.moveRelative(moveX, moveY);
+            }
 
         })
     }

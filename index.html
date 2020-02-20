@@ -2,184 +2,515 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>twoD Carousel</title>
+    <title>Carousel2D</title>
+    <link rel="stylesheet" type="text/css" href="carousel2d.css">
     <style>
-        .slider2dCol{
-            display: inline-block;
-            width: 200px;
-            height: auto;
-            transition: transform 0.5s, opacity 0.5s;
+        :root {
+            --carousel2dControllerSize: 20px;
+            --carousel2dControllerWidth: 3px;
+            --carousel2dControllerColor: #0500ff;
         }
-        .slider2dRow{
-            white-space: nowrap;
-            font-size: 0;
-            /*overflow: hidden;*/
-        }
-        img{
-            width: 100%;
-            vertical-align: bottom;
-        }
-        .slider2d{
-            width: 700px;
-            height: 400px;
-            overflow: hidden;
+
+        #test {
+            width: 500px;
+            height: 394px;
             border: solid 2px black;
         }
-        #slider2dTarget{
+
+
+        #test2 {
             width: 700px;
-            height: auto;
+            height: 394px;
+            border: solid 2px black;
+        }
+
+        #test2View {
+            width: 700px;
+            height: 400px;
             border: solid 2px red;
         }
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
     </style>
 </head>
 <body>
-<div id="slider2dTarget"></div>
-<div class="slider2d">
-    <div class="slider2dRow">
-        <div class="slider2dCol"><img src="img/1.jpg"></div>
-        <div class="slider2dCol"><img src="img/2.jpg"></div>
-        <div class="slider2dCol"><img src="img/3.jpg"></div>
-        <div class="slider2dCol"><img src="img/4.jpg"></div>
-        <div class="slider2dCol"><img src="img/5.jpg"></div>
-    </div>
+<h1> Carousel 2D Demo</h1>
 
-    <div class="slider2dRow">
-        <div class="slider2dCol"><img src="img/6.jpg"></div>
-        <div class="slider2dCol"><img src="img/7.jpg"></div>
-        <div class="slider2dCol"><img src="img/8.jpg"></div>
-        <div class="slider2dCol"><img src="img/9.jpg"></div>
-        <div class="slider2dCol"><img src="img/10.jpg"></div>
-    </div>
+<!--Automatic content load method (img only)-->
+<h2> Automatic content load (img only)</h2>
+<div id="test" class="carousel2d"></div>
+You can use arrow key to move.
 
-    <div class="slider2dRow">
-        <div class="slider2dCol"><img src="img/11.jpg"></div>
-        <div class="slider2dCol"><img src="img/12.jpg"></div>
-        <div class="slider2dCol"><img src="img/13.jpg"></div>
-        <div class="slider2dCol"><img src="img/14.jpg"></div>
-        <div class="slider2dCol"><img src="img/15.jpg"></div>
+<!--Manual content load method-->
+<h2> Manual content load with content view</h2>
+<div id="test2" class="carousel2d">
+    <div class="carousel2dRow">
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(0, 0, 255); height: 100%; width: 100%"> 0 0</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(0, 25, 255); height: 100%; width: 100%"> 0 1</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(0, 50, 255); height: 100%; width: 100%"> 0 2</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(0, 75, 255); height: 100%; width: 100%"> 0 3</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(0, 100, 255); height: 100%; width: 100%"> 0 4</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(0, 125, 255); height: 100%; width: 100%"> 0 5</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(0, 150, 255); height: 100%; width: 100%"> 0 6</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(0, 175, 255); height: 100%; width: 100%"> 0 7</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(0, 200, 255); height: 100%; width: 100%"> 0 8</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(0, 225, 255); height: 100%; width: 100%"> 0 9</div>
+        </div>
     </div>
-
-    <div class="slider2dRow">
-        <div class="slider2dCol"><img src="img/16.jpg"></div>
-        <div class="slider2dCol"><img src="img/17.jpg"></div>
-        <div class="slider2dCol"><img src="img/18.jpg"></div>
-        <div class="slider2dCol"><img src="img/19.jpg"></div>
-        <div class="slider2dCol"><img src="img/20.jpg"></div>
+    <div class="carousel2dRow">
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(25, 0, 255); height: 100%; width: 100%"> 1 0</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(25, 25, 255); height: 100%; width: 100%"> 1 1</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(25, 50, 255); height: 100%; width: 100%"> 1 2</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(25, 75, 255); height: 100%; width: 100%"> 1 3</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(25, 100, 255); height: 100%; width: 100%"> 1 4</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(25, 125, 255); height: 100%; width: 100%"> 1 5</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(25, 150, 255); height: 100%; width: 100%"> 1 6</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(25, 175, 255); height: 100%; width: 100%"> 1 7</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(25, 200, 255); height: 100%; width: 100%"> 1 8</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(25, 225, 255); height: 100%; width: 100%"> 1 9</div>
+        </div>
     </div>
-
-    <div class="slider2dRow">
-        <div class="slider2dCol"><img src="img/21.jpg"></div>
-        <div class="slider2dCol"><img src="img/22.jpg"></div>
-        <div class="slider2dCol"><img src="img/23.jpg"></div>
-        <div class="slider2dCol"><img src="img/24.jpg"></div>
-        <div class="slider2dCol"><img src="img/25.jpg"></div>
+    <div class="carousel2dRow">
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(50, 0, 255); height: 100%; width: 100%"> 2 0</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(50, 25, 255); height: 100%; width: 100%"> 2 1</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(50, 50, 255); height: 100%; width: 100%"> 2 2</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(50, 75, 255); height: 100%; width: 100%"> 2 3</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(50, 100, 255); height: 100%; width: 100%"> 2 4</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(50, 125, 255); height: 100%; width: 100%"> 2 5</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(50, 150, 255); height: 100%; width: 100%"> 2 6</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(50, 175, 255); height: 100%; width: 100%"> 2 7</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(50, 200, 255); height: 100%; width: 100%"> 2 8</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(50, 225, 255); height: 100%; width: 100%"> 2 9</div>
+        </div>
+    </div>
+    <div class="carousel2dRow">
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(75, 0, 255); height: 100%; width: 100%"> 3 0</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(75, 25, 255); height: 100%; width: 100%"> 3 1</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(75, 50, 255); height: 100%; width: 100%"> 3 2</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(75, 75, 255); height: 100%; width: 100%"> 3 3</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(75, 100, 255); height: 100%; width: 100%"> 3 4</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(75, 125, 255); height: 100%; width: 100%"> 3 5</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(75, 150, 255); height: 100%; width: 100%"> 3 6</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(75, 175, 255); height: 100%; width: 100%"> 3 7</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(75, 200, 255); height: 100%; width: 100%"> 3 8</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(75, 225, 255); height: 100%; width: 100%"> 3 9</div>
+        </div>
+    </div>
+    <div class="carousel2dRow">
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(100, 0, 255); height: 100%; width: 100%"> 4 0</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(100, 25, 255); height: 100%; width: 100%"> 4 1</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(100, 50, 255); height: 100%; width: 100%"> 4 2</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(100, 75, 255); height: 100%; width: 100%"> 4 3</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(100, 100, 255); height: 100%; width: 100%"> 4 4</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(100, 125, 255); height: 100%; width: 100%"> 4 5</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(100, 150, 255); height: 100%; width: 100%"> 4 6</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(100, 175, 255); height: 100%; width: 100%"> 4 7</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(100, 200, 255); height: 100%; width: 100%"> 4 8</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(100, 225, 255); height: 100%; width: 100%"> 4 9</div>
+        </div>
+    </div>
+    <div class="carousel2dRow">
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(125, 0, 255); height: 100%; width: 100%"> 5 0</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(125, 25, 255); height: 100%; width: 100%"> 5 1</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(125, 50, 255); height: 100%; width: 100%"> 5 2</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(125, 75, 255); height: 100%; width: 100%"> 5 3</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(125, 100, 255); height: 100%; width: 100%"> 5 4</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(125, 125, 255); height: 100%; width: 100%"> 5 5</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(125, 150, 255); height: 100%; width: 100%"> 5 6</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(125, 175, 255); height: 100%; width: 100%"> 5 7</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(125, 200, 255); height: 100%; width: 100%"> 5 8</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(125, 225, 255); height: 100%; width: 100%"> 5 9</div>
+        </div>
+    </div>
+    <div class="carousel2dRow">
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(150, 0, 255); height: 100%; width: 100%"> 6 0</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(150, 25, 255); height: 100%; width: 100%"> 6 1</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(150, 50, 255); height: 100%; width: 100%"> 6 2</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(150, 75, 255); height: 100%; width: 100%"> 6 3</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(150, 100, 255); height: 100%; width: 100%"> 6 4</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(150, 125, 255); height: 100%; width: 100%"> 6 5</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(150, 150, 255); height: 100%; width: 100%"> 6 6</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(150, 175, 255); height: 100%; width: 100%"> 6 7</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(150, 200, 255); height: 100%; width: 100%"> 6 8</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(150, 225, 255); height: 100%; width: 100%"> 6 9</div>
+        </div>
+    </div>
+    <div class="carousel2dRow">
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(175, 0, 255); height: 100%; width: 100%"> 7 0</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(175, 25, 255); height: 100%; width: 100%"> 7 1</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(175, 50, 255); height: 100%; width: 100%"> 7 2</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(175, 75, 255); height: 100%; width: 100%"> 7 3</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(175, 100, 255); height: 100%; width: 100%"> 7 4</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(175, 125, 255); height: 100%; width: 100%"> 7 5</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(175, 150, 255); height: 100%; width: 100%"> 7 6</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(175, 175, 255); height: 100%; width: 100%"> 7 7</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(175, 200, 255); height: 100%; width: 100%"> 7 8</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(175, 225, 255); height: 100%; width: 100%"> 7 9</div>
+        </div>
+    </div>
+    <div class="carousel2dRow">
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(200, 0, 255); height: 100%; width: 100%"> 8 0</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(200, 25, 255); height: 100%; width: 100%"> 8 1</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(200, 50, 255); height: 100%; width: 100%"> 8 2</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(200, 75, 255); height: 100%; width: 100%"> 8 3</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(200, 100, 255); height: 100%; width: 100%"> 8 4</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(200, 125, 255); height: 100%; width: 100%"> 8 5</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(200, 150, 255); height: 100%; width: 100%"> 8 6</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(200, 175, 255); height: 100%; width: 100%"> 8 7</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(200, 200, 255); height: 100%; width: 100%"> 8 8</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(200, 225, 255); height: 100%; width: 100%"> 8 9</div>
+        </div>
+    </div>
+    <div class="carousel2dRow">
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(225, 0, 255); height: 100%; width: 100%"> 9 0</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(225, 25, 255); height: 100%; width: 100%"> 9 1</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(225, 50, 255); height: 100%; width: 100%"> 9 2</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(225, 75, 255); height: 100%; width: 100%"> 9 3</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(225, 100, 255); height: 100%; width: 100%"> 9 4</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(225, 125, 255); height: 100%; width: 100%"> 9 5</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(225, 150, 255); height: 100%; width: 100%"> 9 6</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(225, 175, 255); height: 100%; width: 100%"> 9 7</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(225, 200, 255); height: 100%; width: 100%"> 9 8</div>
+        </div><!--
+-->
+        <div class="carousel2dCol">
+            <div style="background-color: rgb(225, 225, 255); height: 100%; width: 100%"> 9 9</div>
+        </div>
     </div>
 </div>
+<h3> Content View</h3>
+<div id="test2View"></div>
+
+<script src="carousel2d.js"></script>
 <script>
-
-    let positionX = 0;
-    let positionY = 0;
-    let targetX = 2;
-    let targetY = 2;
-    const contentWidthNum = 5;
-    const contentHeightNum = 5;
-    function init() {
-        console.log('init');
-        let cla = document.getElementsByClassName('slider2dCol');
-        for(let i=0;i<cla.length;i++){
-
-            cla[i].setAttribute('id', i.toString());  // Append ID
-        }
-        initMove('slider2dCol'); // Target centering
-        let target = document.getElementById(target2id()).firstElementChild.cloneNode();
-        document.getElementById("slider2dTarget").appendChild(target)
+    let list = [];
+    for (let i = 0; i < 25; i++) {
+        list.push(`demo/img/${i}.png`)
     }
+    // Automatic content load method (img only)
+    let a = new Carousel2d('test', list, {
+        contentHeightNum: 5,
+        contentWidthNum: 5,
+        contentWidth: '400px',
+        contentHeight: `300px`,
+        targetX: 2,
+        targetY: 2,
+        useView: false,
+        useController: true
+    });
+    // Manual content load method
+    let b = new Carousel2d('test2', false, {
+        contentHeightNum: 10,
+        contentWidthNum: 10,
+        contentWidth: '100px',
+        contentHeight: `100px`,
+        targetX: 5,
+        targetY: 5,
+        useView: true,
+        useController: true
 
-    function target2id() {
-        return (targetY*contentWidthNum+targetX).toString()
-    }
-    function isOverTargetIndex(x, y) {
-        let ntx = targetX - x;
-        let nty = targetY - y;
-        console.log(ntx, nty);
-        return ntx < 0 || ntx > contentWidthNum-1 || nty < 0 || nty > contentHeightNum-1;
-    }
-
-    function initMove(className) {
-        let mains = document.getElementsByClassName('slider2d');
-        let cla = document.getElementsByClassName(className);
-
-        //  calculates the initial amount of move
-        let mainW = mains[0].clientWidth;
-        let mainH = mains[0].clientHeight;
-        let contentW = cla[0].clientWidth;
-        let contentH = cla[0].clientHeight;
-        let x = ((mainW - contentW)/2 - contentW*targetX) /contentW;
-        let y = ((mainH - contentH)/2 - contentH*targetY) /contentH;
-
-        // Move and Transparent element
-        for(let i=0;i<cla.length;i++){
-            cla[i].style.transform = `translate3d(${positionX + x*100}%, ${positionY + y*100}%, 0)`;
-            cla[i].style.opacity = '0.3';
-        }
-
-        // Init position set
-        positionX = x*100;
-        positionY = y*100;
-
-        // Target is not transparent
-        let a = document.getElementById(target2id());
-        a.style.opacity = '1'
-    }
-
-    function move(x, y, className){
-        x = Math.round(x); y = Math.round(y);
-        if (isOverTargetIndex(x, y)) return;
-        let cla = document.getElementsByClassName(className);
-        for(let i=0;i<cla.length;i++){
-            cla[i].style.transform = `translate3d(${positionX + x*100}%, ${positionY + y*100}%, 0)`;
-            cla[i].style.opacity = '0.3';
-        }
-        positionX = positionX + x*100;
-        positionY = positionY + y*100;
-        targetX = targetX - x;
-        targetY = targetY - y;
-        let a = document.getElementById(target2id());
-        a.style.opacity = '1';
-        let p = document.getElementById('slider2dTarget');
-        console.log(p);
-        p.removeChild(p.firstChild);
-        let target = document.getElementById(target2id()).firstElementChild.cloneNode();
-        p.appendChild(target)
-
-    }
+    });
 
     document.addEventListener('keydown', ev => {
-        if(ev.key === 'ArrowRight') {
+        if (ev.key === 'ArrowRight') {
             console.log('right');
-            move(-1, 0, 'slider2dCol');
-            console.log(positionX, positionY)
+            a.moveRight();
         }
-        if(ev.key === "ArrowLeft") {
+        if (ev.key === "ArrowLeft") {
             console.log('left');
-            move(1, 0, 'slider2dCol');
-            console.log(positionX, positionY)
+            a.moveLeft();
         }
 
         if(ev.key === "ArrowUp") {
             console.log('up');
-            move(0, 1, 'slider2dCol');
-            console.log(positionX, positionY)
+            a.moveUp();
         }
         if(ev.key === "ArrowDown") {
             console.log('down');
-            move(0, -1, 'slider2dCol');
-            console.log(positionX, positionY)
+            a.moveDown();
         }
     });
-    window.onload = function () {
-        init()
-    }
 </script>
 </body>
 </html>
