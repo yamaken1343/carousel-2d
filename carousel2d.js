@@ -59,6 +59,7 @@ class Carousel2d {
         }
         this.moveEventInit();
         this.dragEventInit();
+        this.flickEventInit();
         if (this.useController) {
             this.addController()
         }
@@ -194,6 +195,8 @@ class Carousel2d {
             this.startY = e.clientY;
             this.diffX = 0;
             this.diffY = 0;
+            this.tgX = this.targetX;
+            this.tgY = this.targetY;
             // Turn off animation
             let col = document.getElementsByClassName(this.colClass);
             for (let i = 0; i < col.length; i++) {
@@ -209,13 +212,21 @@ class Carousel2d {
             this.diffY = -this.startY + e.clientY;
             // Animation
             let col = document.getElementsByClassName(this.colClass);
+            let contentW = col[0].clientWidth;
+            let contentH = col[0].clientHeight;
             for (let i = 0; i < col.length; i++) {
                 col[i].style.transform = `translate3d(${this.positionX}%, ${this.positionY}%, 0) translate3d(${this.diffX}px, ${this.diffY}px, 0)`;
+                col[i].style.opacity = '0.3';
             }
+            this.targetX = this.tgX - Math.round(this.diffX / contentW);
+            this.targetY = this.tgY - Math.round(this.diffY / contentH);
+            document.getElementById(this.rootid).dispatchEvent(this.moveEvent);
         });
 
         root.addEventListener("mouseup", e => {
             this.mouseFlag = false;
+            this.targetX = this.tgX;
+            this.targetY = this.tgY;
             let col = document.getElementsByClassName(this.colClass);
             let contentW = col[0].clientWidth;
             let contentH = col[0].clientHeight;
@@ -226,11 +237,12 @@ class Carousel2d {
             }
             // Calculation of actual move distance
             let moveX = Math.round(this.diffX / contentW);
-            if (moveX === 0 && this.diffX > contentW / 10) moveX = 1;
-            else if (moveX === 0 && -this.diffX > contentW / 10) moveX = -1;
             let moveY = Math.round(this.diffY / contentH);
-            if (moveY === 0 && this.diffY > contentH / 10) moveY = 1;
-            else if (moveY === 0 && -this.diffY > contentH / 10) moveY = -1;
+            // little drag
+            if (moveX === 0 && moveY === 0){
+                if (Math.abs(this.diffX) > contentW / 10) moveX = Math.sign(this.diffX);
+                if (Math.abs(this.diffY) > contentH / 10) moveY = Math.sign(this.diffY);
+            }
             // single click
             if (moveX === 0 && moveY === 0) {
                 // id to num (ex. rootid_num_ -> num)
@@ -245,8 +257,29 @@ class Carousel2d {
             } else { // drag
                 this.moveRelative(moveX, moveY);
             }
-
         })
+    }
+    flickEventInit(){
+        console.log('aaa');
+        let root = document.getElementById(this.rootid);
+        root.addEventListener("touchstart", e => {
+            this.startX = e.touches[0].pageX;
+            this.startY = e.touches[0].pageY;
+            e.preventDefault()
+        });
+        root.addEventListener("touchmove", e => {
+            this.diffX = e.changedTouches[0].pageX - this.startX;
+            this.diffY = e.changedTouches[0].pageY - this.startY;
+        });
+        root.addEventListener("touchend", () => {
+            let moveX = 0;
+            let moveY = 0;
+            if (Math.abs(this.diffX) > parseInt(this.contentWidth) / 10) moveX = Math.sign(this.diffX);
+            if (Math.abs(this.diffY) > parseInt(this.contentHeight) / 10) moveY = Math.sign(this.diffY);
+            this.moveRelative(moveX, moveY);
+        })
+
+
     }
 
 }
